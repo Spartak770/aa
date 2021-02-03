@@ -1,0 +1,56 @@
+.sidebar {
+    background-color: #282C34;
+    .navbar{
+        padding: 0;
+        ul {
+            margin: auto;
+            list-style: none;
+
+            li {
+                //overflow: hidden;
+                display: inline-block;
+                //width: 125px;
+                //height: 25px;
+                text-align: center;
+                //margin-right: 30px;
+
+                a {
+                    width: 125px;
+                    color: white;
+                    text-decoration: none;
+                    transition: all 0.3s;
+                    display: inline-block;
+                    padding-top: 18px;
+                    font-weight: 400;
+                }
+
+                &:hover a { /*li:hover*/
+                    color: #f44336 !important;
+                    padding-top: 12px;
+                    padding-bottom: 10px;
+                    transition: 0.3s;
+                    background-color: #1617199e;
+                }
+                &:hover{
+
+                }
+            }
+        }
+    }
+}
+
+
+@media screen and (max-width: 990px) {
+    ul {
+        width: 100%;
+
+        li {
+            width: inherit !important;
+
+            a {
+                width: inherit !important;
+            }
+        }
+    }
+
+}

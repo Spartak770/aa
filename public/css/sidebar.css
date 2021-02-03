@@ -1,0 +1,44 @@
+.sidebar {
+  background-color: #282C34;
+}
+.sidebar .navbar {
+  padding: 0;
+}
+.sidebar .navbar ul {
+  margin: auto;
+  list-style: none;
+}
+.sidebar .navbar ul li {
+  display: inline-block;
+  text-align: center;
+}
+.sidebar .navbar ul li a {
+  width: 125px;
+  color: white;
+  text-decoration: none;
+  transition: all 0.3s;
+  display: inline-block;
+  padding-top: 18px;
+  font-weight: 400;
+}
+.sidebar .navbar ul li:hover a {
+  /*li:hover*/
+  color: #f44336 !important;
+  padding-top: 12px;
+  padding-bottom: 10px;
+  transition: 0.3s;
+  background-color: #1617199e;
+}
+@media screen and (max-width: 990px) {
+  ul {
+    width: 100%;
+  }
+  ul li {
+    width: inherit !important;
+  }
+  ul li a {
+    width: inherit !important;
+  }
+}
+
+/*# sourceMappingURL=sidebar.css.map */

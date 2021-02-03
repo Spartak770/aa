@@ -1,0 +1,7 @@
+php artisan make:migration create_users_table
+php artisan migrate //sarqum enq bazayum table
+php artisan migrate:rollback //jnjum a
+php artisan make:migration add_password_column_to_users_table // password anunov syunak enq sarqum userum
+
+
+Eloquent

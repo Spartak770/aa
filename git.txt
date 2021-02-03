@@ -1,0 +1,12 @@
+git init    //repasitory a sarqum
+git status  //ed pahin fileri vijak@
+git add . // bolor@
+
+
+
+
+
+
+
+
+
