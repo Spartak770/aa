@@ -10,7 +10,7 @@ git config --local user.name "Miqayel Petrosyan"
 git config --local user.email "miqayelpetrosyan@gmail.com"
 git log //savern enq stanum
     //git commit -a   ?
-
+sad
 
 
 
