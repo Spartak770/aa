@@ -1,10 +1,12 @@
 @extends('app.master') {{--jarangum enq--}}
+
 @section('css')
     <link rel="stylesheet" href="css/login.css">
 @endsection
 @section('title','Login')
 
 @section('content')
+@include('messages')
 <div>
     <div class="col-4 mx-auto loginForm">
         <form class="mx-auto text-center" action="/login" method="post">

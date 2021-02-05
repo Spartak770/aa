@@ -4,6 +4,7 @@
 @endsection
 @section('title','Signup')
 @section('content')
+   @include('messages')
     <div>
         <div class="col-4 mx-auto loginForm">
             <form class="mx-auto text-center" action="/signup" method="post">

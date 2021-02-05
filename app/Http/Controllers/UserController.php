@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -39,16 +40,34 @@ class UserController extends Controller
     }
 
     public function signIn(Request $request){
-        dd($request->all());
+        $validated = $request->validate([
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+
+        if(Auth::attempt($validated)){
+            dd('login');
+        }else{
+           return redirect('/login')->with('error','Invalid email or password');
+        }
+
     }
 
     public function registr(){
         return view('signup');
+
+
+
     }
     public function signUp(Request $request){
-    $data = $request->only('name','email','age','password'); /*stanum enq konkret */
-    $data['password'] = bcrypt($data['password']); //* kodavorum enq password@*/
-    $user = User::create($data);
+        $validated = $request->validate([
+            'name' => 'required|string|max:16',
+            'email' => 'required|unique:users,email',
+            'age' => 'required|numeric|max:100',
+            'password' => 'required|min:6',
+        ]);
+    $validated['password'] = bcrypt($validated['password']); //* kodavorum enq password@*/
+    $user = User::create($validated);
 //    dd($user);
         return redirect('/login');
     }
