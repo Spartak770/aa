@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use \Illuminate\Http\Request;
 use \App\Http\Controllers\UserController;
-
+use App\Http\Middleware\CheckUserAuth;
 use App\Models\User;
 
 /*
@@ -24,11 +24,14 @@ use App\Models\User;
 
 Route::get('/',[UserController::class,'index']); // UserController login funkcian
 
-Route::get('/login',[UserController::class,'login']); // UserController login funkcian
-Route::post('/login',[UserController::class,'signIn']); // UserController login funkcian
+Route::get('/login',[UserController::class,'login'])->name('login'); // UserController login funkcian
+Route::post('/login',[UserController::class,'signIn'])->name('post-login'); // UserController login funkcian
 
 Route::get('/signup',[UserController::class,'registr']);
 Route::post('/signup',[UserController::class,'signUp']);
+Route::get('/profile', [UserController::class, 'profile'])->name('profile')->middleware('checkUserAuth');
+
+Route::post('/logout', [UserController::class, 'logout'])->middleware('checkUserAuth')->name('logout');
 
 Route::get('/test',function (){
 

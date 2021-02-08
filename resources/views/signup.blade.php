@@ -32,3 +32,20 @@
         </div>
     </div>
 @endsection
+
+
+
+
+
+
+
+
+
+
+
+
+{{-- git clone --}}
+{{-- go to project dictionary --}}
+{{-- cp .env.example   .env --}}
+{{-- compser install --}}
+{{-- php artisan key:generate --}}

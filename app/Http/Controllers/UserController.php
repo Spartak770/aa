@@ -10,7 +10,11 @@ class UserController extends Controller
 {
     public function login()
     {
-        return view('login');
+        if(Auth::check()){
+            return redirect()->route('profile');
+        }else{
+            return view('login');
+        }
     }
     public function index(){
 
@@ -46,11 +50,21 @@ class UserController extends Controller
         ]);
 
         if(Auth::attempt($validated)){
-            dd('login');
+            return redirect()->route('profile');
         }else{
-           return redirect('/login')->with('error','Invalid email or password');
+           return redirect()->route('/login')->with('error','Invalid email or password');
         }
 
+    }
+
+    public function profile()
+    {
+        $user = Auth::user();
+
+
+        return view('profile',[
+            'user' => Auth::user()
+        ]);
     }
 
     public function registr(){
@@ -69,6 +83,12 @@ class UserController extends Controller
     $validated['password'] = bcrypt($validated['password']); //* kodavorum enq password@*/
     $user = User::create($validated);
 //    dd($user);
-        return redirect('/login');
+        return redirect()->route('/login');
+    }
+
+    public function logout(){
+        Auth::logout();
+
+        return redirect()->route('/login');
     }
 }

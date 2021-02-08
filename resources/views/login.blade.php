@@ -6,10 +6,12 @@
 @section('title','Login')
 
 @section('content')
+
+
 @include('messages')
 <div>
     <div class="col-4 mx-auto loginForm">
-        <form class="mx-auto text-center" action="/login" method="post">
+        <form class="mx-auto text-center" action="{{ route('post-login') }}" method="post">
 {{--            <input type="hidden" name="_token" value="{{csrf_token()}}">--}}
             @csrf
             <h6 class="text-center mb-4 mt-4">Login</h6>
