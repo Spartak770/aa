@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRegisterRequest;
+use App\Http\Requests\UserSignInRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Post;
 
 class UserController extends Controller
 {
@@ -43,16 +46,13 @@ class UserController extends Controller
         ]);
     }
 
-    public function signIn(Request $request){
-        $validated = $request->validate([
-            'email' => 'required',
-            'password' => 'required',
-        ]);
+    public function signIn(UserSignInRequest $request){
+        $validated = $request->validated();
 
         if(Auth::attempt($validated)){
             return redirect()->route('profile');
         }else{
-           return redirect()->route('/login')->with('error','Invalid email or password');
+           return redirect()->route('login')->with('error','Invalid email or password');
         }
 
     }
@@ -60,10 +60,11 @@ class UserController extends Controller
     public function profile()
     {
         $user = Auth::user();
-
-
+        $posts = Post::where('user_id',Auth::user()->id)->with('user')->get();
+        // dd($posts);
         return view('profile',[
-            'user' => Auth::user()
+            'user' => Auth::user(),
+            'posts'=>$posts
         ]);
     }
 
@@ -73,22 +74,18 @@ class UserController extends Controller
 
 
     }
-    public function signUp(Request $request){
-        $validated = $request->validate([
-            'name' => 'required|string|max:16',
-            'email' => 'required|unique:users,email',
-            'age' => 'required|numeric|max:100',
-            'password' => 'required|min:6',
-        ]);
+    public function signUp(UserRegisterRequest $request){
+        $validated = $request->validated();
+
     $validated['password'] = bcrypt($validated['password']); //* kodavorum enq password@*/
     $user = User::create($validated);
 //    dd($user);
-        return redirect()->route('/login');
+        return redirect()->route('login');
     }
 
     public function logout(){
         Auth::logout();
 
-        return redirect()->route('/login');
+        return redirect()->route('login');
     }
 }

@@ -14,4 +14,26 @@
             </form>
         </div>
     </div>
+    <div class="form-control">
+        <div class="row">
+            <div class="col-md-12">
+                <a href="{{ route('post-create') }}" class="btn btn-info">New Post</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            @foreach($posts as $post)
+                <div class="col-md-12">
+                    <h2>{{ $post->data }}</h2>
+                    <small>{{ $post->user->name }}</small>
+                    <small>{{ $post->created_at }}</small>
+                </div>
+                <hr>
+            @endforeach
+        </div>
+    </div>
+
+
 @endsection

@@ -43,4 +43,9 @@ class User extends Authenticatable //model@ ezaki table@ hognaki
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
 }
