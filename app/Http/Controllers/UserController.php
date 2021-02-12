@@ -59,9 +59,12 @@ class UserController extends Controller
 
     public function profile()
     {
-        $user = Auth::user();
+        // $user = Auth::user();
         $posts = Post::where('user_id',Auth::user()->id)->with('user')->get();
         // dd($posts);
+        $user = User::first();
+
+
         return view('profile',[
             'user' => Auth::user(),
             'posts'=>$posts
@@ -71,14 +74,11 @@ class UserController extends Controller
     public function registr(){
         return view('signup');
 
-
-
     }
     public function signUp(UserRegisterRequest $request){
         $validated = $request->validated();
 
-    $validated['password'] = bcrypt($validated['password']); //* kodavorum enq password@*/
-    $user = User::create($validated);
+    $user = User::create($request->validated());
 //    dd($user);
         return redirect()->route('login');
     }
@@ -88,4 +88,39 @@ class UserController extends Controller
 
         return redirect()->route('login');
     }
+
+    public function edit(){
+        return view('user-edit',[
+            'user' => Auth::user()
+        ]);
+    }
+
+    public function update(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'nullable|min:3|max:16',
+            'password' => 'nullable|min:6',
+            'image' => 'nullable|image|max:2048'
+        ]);
+
+        $validated = array_filter($validated, function($value){
+            return !empty($value);
+        });
+
+        Auth::user()->update($validated);
+        if($request->hasFile('image')){
+            $imageName = $request->file('image')->store('images');
+
+            Auth::user()->profile_image = $imageName;
+            Auth::user()->save();
+        }
+
+
+        return redirect()->route('profile');
+
+    }
+
+
+
+
 }

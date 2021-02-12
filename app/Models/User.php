@@ -48,4 +48,20 @@ class User extends Authenticatable //model@ ezaki table@ hognaki
     {
         return $this->hasMany(Post::class);
     }
+
+    public function getBirthYearAttribute(){
+        return (int) date('Y') - $this->age;
+    }
+
+    public function getNameAttribute($value){
+        return strtoupper($value);
+    }
+
+    public function setPasswordAttribute($value){
+        $this->attributes['password'] = bcrypt($value);
+    }
+
+    public function getJoinedDateAttribute(){
+        return date('M, d Y', strtotime($this->created_at));
+    }
 }
