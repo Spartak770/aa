@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -108,8 +109,21 @@ class UserController extends Controller
         });
 
         Auth::user()->update($validated);
+
+
+
         if($request->hasFile('image')){
-            $imageName = $request->file('image')->store('images');
+
+            if(Auth::user()->profile_image) {
+                $oldImagePath = Auth::user()->profile_image;
+                if(Storage::exists($oldImagePath)){
+                    Storage::delete($oldImagePath);
+                }
+            }
+
+
+            // $imageName = $request->file('image')->store('images');
+            $imageName = Storage::put('images', $request->file('image'));
 
             Auth::user()->profile_image = $imageName;
             Auth::user()->save();
@@ -120,7 +134,10 @@ class UserController extends Controller
 
     }
 
+    public function  getProfileImage()
+    {
 
+        return response()->file(Storage::path(\Auth::user()->profile_image));
 
-
+    }
 }

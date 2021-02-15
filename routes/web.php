@@ -6,6 +6,7 @@ use \Illuminate\Http\Request;
 use \App\Http\Controllers\UserController;
 use App\Http\Middleware\CheckUserAuth;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 
 
 /*
@@ -40,9 +41,10 @@ Route::group(['middleware' => ['checkUserAuth']], function () {
     PostController::class, 'store'])->name('store-posts');
     Route::get('me/edit',[UserController::class, 'edit'])->name('user.edit');
     Route::post('me/edit', [UserController::class, 'update'])->name('user.update');
+    Route::get('me/profile_image', [UserController::class,'getProfileImage'])->name('user.profile-image');
 });
 
-Route::get('/test', function () {
+// Route::get('/test', function () {
 
     //   $users = User::first();/*arajin@*/
     //   $users = User::get();/*sax*/
@@ -61,13 +63,13 @@ Route::get('/test', function () {
     //    $users = User::limit(2)->skip(5)->get();/*10 hat@ vercra 5@ bac tox*/
     //    $users = User::groupBy('name')->get();
     //    $count = User::count(); // ստանում ենք քանակը
-    $count = User::paginate(4); // 4 հատն ենք ստանում
+    // $count = User::paginate(4); // 4 հատն ենք ստանում
     //    $count = User::where('age','>',10)->count();
     //    $user = User::where('id',4)->first();  Or User::find(4) /*id a man galis*/
     $users = User::find([1, 5, 7]); // 1,5,7 id ով յուզեռներին ենք ստանում
     //    $user =  User::where('id','>','5')->orderBy('first_name', 'desc')->take(10)->get(); //10 հատը
-    dump($users);
-});
+    // dump($users);
+// });
 
 //Route::post('/signup',[UserController::class,'signUp']);
 
