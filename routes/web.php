@@ -96,3 +96,10 @@ Route::group(['middleware' => ['checkUserAuth']], function () {
 //Route::get('user/{id}/sad',function ($id){
 //    dd($id);
 //});
+
+
+
+Route::get('test', function(){
+        baza avelacnel stanal update xmbov stanal
+        Eloquent class nayeel laraveli docum
+});

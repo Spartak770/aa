@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +18,12 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::get('users', function(){
+    return response()->json(\App\Models\User::all());
+});
+
+Route::post('users',[UserController::class, 'apiStore']);
+Route::get('users', [UserController::class, 'apiReturn']);
+Route::get('users/{id}', [UserController::class, 'getUser']);
+
+//http://127.0.0.1:8000/api/users

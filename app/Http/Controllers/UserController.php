@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Constants\ClientResponse;
 use App\Http\Requests\UserRegisterRequest;
 use App\Http\Requests\UserSignInRequest;
 use Illuminate\Http\Request;
@@ -127,7 +128,29 @@ class UserController extends Controller
     public function  getProfileImage()
     {
 
-        return response()->file(Storage::path(\Auth::user()->profile_image));
+        return response()->file(Storage::path(Auth::user()->profile_image));
 
+    }
+
+    public function apiStore(UserRegisterRequest $request){
+        $user = User::create($request->validated());
+
+        return response()->json([
+            'status' => ClientResponse::STATUSES['success'],
+            'data' =>$user
+        ]);
+    }
+
+    public function apiReturn(){
+        return response()->json([
+            User::all()
+        ]);
+    }
+
+    public function getUser($userId){
+        return response()->json([
+            'status' => ClientResponse::STATUSES['success'],
+            'data'=> User::find($userId),
+        ]);
     }
 }
