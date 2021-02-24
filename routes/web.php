@@ -37,12 +37,13 @@ Route::group(['middleware' => ['checkUserAuth']], function () {
     Route::get('/profile', [UserController::class, 'profile'])->name('profile');
     Route::post('/logout', [UserController::class, 'logout'])->name('logout');
     Route::get('posts', [PostController::class, 'create'])->name('post-create');
-    Route::post('posts',    [
-    PostController::class, 'store'])->name('store-posts');
+    Route::post('posts', [PostController::class, 'store'])->name('store-posts');
     Route::get('me/edit',[UserController::class, 'edit'])->name('user.edit');
     Route::post('me/edit', [UserController::class, 'update'])->name('user.update');
     Route::get('me/profile_image', [UserController::class,'getProfileImage'])->name('user.profile-image');
+    
 });
+
 
 // Route::get('/test', function () {
 

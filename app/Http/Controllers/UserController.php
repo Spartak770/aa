@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
 use Illuminate\Support\Facades\Storage;
 use App\Services\UserService;
-
+use Illuminate\Support\Facades\Http;
 
 
 
@@ -129,5 +129,18 @@ class UserController extends Controller
 
         return response()->file(Storage::path(\Auth::user()->profile_image));
 
+    }
+
+    public function apiLogin(Request $request)
+    {
+        $response = Http::asForm()->post('http://spartak.loc/oauth/token', [
+            "grant_type" => "password",
+            "client_id" => 2,
+            "client_secret" => env("PASSPORT_PASSWORD_SECRET"),
+            "username" => $request->email,
+            "password" => $request->password,
+            "scope" => '',
+        ]);
+        return $response->json();
     }
 }
