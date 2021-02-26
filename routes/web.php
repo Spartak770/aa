@@ -41,7 +41,7 @@ Route::group(['middleware' => ['checkUserAuth']], function () {
     Route::get('me/edit',[UserController::class, 'edit'])->name('user.edit');
     Route::post('me/edit', [UserController::class, 'update'])->name('user.update');
     Route::get('me/profile_image', [UserController::class,'getProfileImage'])->name('user.profile-image');
-    
+
 });
 
 
@@ -97,3 +97,10 @@ Route::group(['middleware' => ['checkUserAuth']], function () {
 //Route::get('user/{id}/sad',function ($id){
 //    dd($id);
 //});
+
+
+
+// Route::get('test', function(){
+//         baza avelacnel stanal update xmbov stanal
+//         Eloquent class nayeel laraveli docum
+// });
